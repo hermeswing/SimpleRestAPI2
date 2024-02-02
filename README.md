@@ -30,5 +30,17 @@ Simple REST API Version 2
         - 기존 SimpleRestAPI/20240202 브랜치는 삭제해야 겠다.
         - Git 명령어  
             `git branch -D [브랜치명]` 로컬브랜치 강제삭제  
-            `git push origin --delete [브랜치명]` 원격브랜치 삭제
+            `git push origin --delete [브랜치명]` 원격브랜치 삭제  
             `git push origin --delete SimpleRestAPI/20240202`
+  - Git Merge
+    - `main` brach 에 `SimpleRestAPI/20240202` branch를 붙이는 작업
+    - 처음에는 Cherry-pick 을 생각했다가..
+      - Cherry-pick 은 해당 branch 를 `main` branch 에 뜯어다가 붙이는 작업이었고,
+      - 다행히 conflict 나서 취소할 수 있었다.
+        - Git 명령어 ( 오류가 나지 않았다면 이동했겠지... ㅡㅡㅋ )  
+            `git cherry-pick --abort`
+    - `SimpleRestAPI/20240202` branch는 놔두고, main 에 branch를 생성하는 작업은 Merge 를 해야 한다.
+      - Git 명령어  
+        `git checkout main` -> 일단 `main` 으로 branch를 옮기고,    
+        `git merge SimpleRestAPI/202402021500` -> 일단 `main` 과 합친다.
+  - **아니다**. Cherry-pick 이 맞는 것 같다.
