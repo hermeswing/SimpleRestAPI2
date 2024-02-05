@@ -11,22 +11,6 @@ spring:
     include: local
 
 ##############################################################
-# Server 설정
-server:
-  servlet:
-    context-path: /
-    encoding:
-      enabled: true
-      charset: UTF-8
-      force: true
-    session:
-      timeout: 120                              # 기본단위 : 초
-      
-  tomcat:
-    uri-encoding: UTF-8                         # Spring Default : UTF-8
-    
-
-##############################################################
 # Logging
 logging:
   config: classpath:logback-local.xml

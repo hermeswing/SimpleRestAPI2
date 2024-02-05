@@ -4,7 +4,16 @@
 # server.tomcat.threads.max : 톰캣 워커 스레드 풀의 최대값을 설정한다.
 server:
   port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+    session:
+      timeout: 120                              # 기본단위 : 초
   tomcat:
+    uri-encoding: UTF-8                         # Spring Default : UTF-8
     threads:
       min-spare: 100
       max: 100
@@ -53,12 +62,12 @@ logging:
     root : INFO
     octopus: DEBUG
     org:
-      hibernate:
-        type:
-          descriptor:
-            sql:
-              BasicBinder: INFO              # TRACE org.hibernate.type.descriptor.sql.BasicBinder.bind 로그를 지웁니다.
-        SQL: INFO                            # DEBUG              org.hibernate.SQL.logStatement 를 지웁니다.
+      #hibernate:
+      #  type:
+      #    descriptor:
+      #      sql:
+      #        BasicBinder: INFO              # TRACE org.hibernate.type.descriptor.sql.BasicBinder.bind 로그를 지웁니다.
+      #  SQL: INFO                            # DEBUG              org.hibernate.SQL.logStatement 를 지웁니다.
       springframework: INFO
   pattern:
     console: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %boldMagenta([▶ %logger.%method ◀])[%line]: - %msg%n"

@@ -63,7 +63,7 @@ public class UserService {
         if( userRepository.existsByUserId( userDto.getUserId() ) ) {
             return ResponseEntity.status( HttpStatus.CONFLICT ).body( "중복된 데이터가 존재합니다." );
         } else {
-            Users users = Users.createEntiry( userDto );
+            Users users = Users.createEntry( userDto );
             Users saveUsers = userRepository.save( users );
 
             log.debug( "saveUsers :: {}", saveUsers );

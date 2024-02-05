@@ -42,7 +42,7 @@ import javax.validation.constraints.NotBlank;
 @JsonIgnoreProperties( { "hibernateLazyInitializer", "handler" } ) // Post Entity에서 User와의 관계를 Json으로 변환시 오류 방지를 위한 코드
 @Proxy( lazy = false )
 @Entity // jpa entity임을 선언. 실제 DB의 테이블과 매칭될 Class
-@Table( name = "USERS", uniqueConstraints = { @UniqueConstraint( columnNames = "email" ) } )
+@Table( name = "USERS", uniqueConstraints = { @UniqueConstraint( columnNames = "userId" ) } )
 public class Users extends BaseEntity implements Persistable<Long> {
     private static final long serialVersionUID = 1L;
 
@@ -93,7 +93,7 @@ public class Users extends BaseEntity implements Persistable<Long> {
         super.mdfId = mdfId;
     }
 
-    public static Users createEntiry( UserDTO.UserDto userDTO ) {
+    public static Users createEntry( UserDTO.UserDto userDTO ) {
         Users user = new Users();
         user.id = userDTO.getId();
         user.userId = userDTO.getUserId();
