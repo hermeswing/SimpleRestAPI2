@@ -8,13 +8,12 @@ Simple REST API Version 2
   - 기능 ( 사용자 관리, 로그인, 로그아웃 등등 )
 
 ## History
-1. 2024.02.03
+2. 2024.02.03
   - SimpleRestAPI/202402031300 생성
     - lombok 설치
     - postgresql 설치
-    - 사용자 조회 기능 추가
+    - 사용자 조회 / 수정 / 삭제 기능 추가
 
-    
 1. 2024.02.02
   - SimpleRestAPI/20240202 생성
     - Git 명령어  

@@ -52,7 +52,7 @@ public class UserService {
     public ResponseEntity<?> findByUserId( String userId ) {
         Optional<Users> findUser = userRepository.findByUserId( userId );
         if( findUser.isEmpty() ) {
-            return ResponseEntity.badRequest().body("데이터를 찾을 수 없습니다.");
+            return ResponseEntity.badRequest().body( "데이터를 찾을 수 없습니다." );
         } else {
             return ResponseEntity.ok( new UserDTO.UserDto( findUser.get() ) );
         }
@@ -72,4 +72,30 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public ResponseEntity<?> updateByUserId( UserDTO.UserDto userDto ) {
+        Optional<Users> existingUser = userRepository.findByUserId( userDto.getUserId() );
+
+        // 존재여부 확인
+        if( existingUser.isPresent() ) {
+            Users users = existingUser.get();
+            users.updateUsers( userDto );
+            userRepository.save( users );
+
+            return ResponseEntity.ok( "수정 되었습니다." );
+        } else {
+            return ResponseEntity.badRequest().body( "데이터를 찾을 수 없습니다." );
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<?> deleteByUserId( String userId ) {
+        Optional<Users> findUser = userRepository.findByUserId( userId );
+        if( findUser.isEmpty() ) {
+            return ResponseEntity.badRequest().body( "데이터를 찾을 수 없습니다." );
+        } else {
+            userRepository.deleteByUserId( userId );
+            return ResponseEntity.ok( "삭제되었습니다." );
+        }
+    }
 }

@@ -20,4 +20,6 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     boolean existsByEmail( String email );
 
     Optional<Users> findByUserId( String userId );
+
+    void deleteByUserId( String userId );
 }

@@ -58,6 +58,8 @@ public class UserDTO {
             super.crtDt = user.getCrtDt();
             super.mdfId = user.getMdfId();
             super.mdfDt = user.getMdfDt();
+
+            super.parseDate(crtDt, mdfDt);
         }
 
         public static List<UserDto> convertUsersToUserDtos( List<Users> usersList ) {

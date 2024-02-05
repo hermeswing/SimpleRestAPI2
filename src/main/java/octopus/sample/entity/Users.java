@@ -122,7 +122,7 @@ public class Users extends BaseEntity implements Persistable<Long> {
     /**
      * 사용자 정보 Update
      */
-    public void updateComment( UserDTO.UserDto dto ) {
+    public void updateUsers( UserDTO.UserDto dto ) {
         this.userId = dto.getUserId();
         this.userNm = dto.getUserNm();
         this.email = dto.getEmail();
