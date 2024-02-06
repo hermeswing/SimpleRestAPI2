@@ -1,57 +1,25 @@
 ##############################################################
-# Server port
-# server.tomcat.threads.min-spare : 톰캣워커 스레드풀의 최소값을 설정한다.
-# server.tomcat.threads.max : 톰캣 워커 스레드 풀의 최대값을 설정한다.
-server:
-  port: 8080
-  servlet:
-    context-path: /
-    encoding:
-      enabled: true
-      charset: UTF-8
-      force: true
-    session:
-      timeout: 120                              # 기본단위 : 초
-  tomcat:
-    uri-encoding: UTF-8                         # Spring Default : UTF-8
-    threads:
-      min-spare: 100
-      max: 100
-
-##############################################################
-# Spring Message 처리
+# Spring JPA 처리
 spring:
-  config.activate.on-profile: local
-  #devtools:
-  #  livereload:
-  #    enabled: true      # DevTools 사용 시 true
-
-  jpa:
-    open-in-view: false
-    #database-platform: org.hibernate.dialect.PostgreSQLDialect
-    #show-sql: true       # System.out 으로 출력. logging.level.org.hibernate.SQL=debug 로 대체합니다. 
-    hibernate:
-      # create : entity를 drop cascade 하고 다시 생성
-      # update : entity가 수정되면 수정된 내용만 반영
-      # create-drop,validate, none
-      # 하이버네이트가 자동으로 생성해주는 DDL은 신뢰성이 떨어지기 때문에 
-      # 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
-      ddl-auto: none
-##############################################################
-# Swagger pathmatch
-# spring.mvc.pathmatch.matching-strategy=ant_path_matcher
-  mvc:
-    pathmatch:
-      matching-strategy: ant-path-matcher
-      
-##############################################################
-# Spring Database 처리
+  ##############################################################
+  # Spring Database 처리
   datasource:
     class-name: org.postgresql.Driver                   # p6spy-spring-boot-starter 를 설정할 경우
     url: jdbc:postgresql://localhost:5432/springboot           # p6spy-spring-boot-starter 를 설정할 경우
     username: hermeswing
     password: pass
     #sql-script-encoding: utf-8            # springboot 1.5.x - Deprecated!
+  jpa:
+    open-in-view: false
+    #database-platform: org.hibernate.dialect.PostgreSQLDialect
+    #show-sql: true       # System.out 으로 출력. logging.level.org.hibernate.SQL=debug 로 대체합니다.
+    hibernate:
+      # create : entity를 drop cascade 하고 다시 생성
+      # update : entity가 수정되면 수정된 내용만 반영
+      # create-drop,validate, none
+      # 하이버네이트가 자동으로 생성해주는 DDL은 신뢰성이 떨어지기 때문에
+      # 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
+      ddl-auto: none
 
 ##############################################################
 # Logging
@@ -81,4 +49,3 @@ logging:
       #max-history: 31                   #default 7 로그 파일 삭제 주기이다. 7일 이후 로그는 삭제한다.
       max-history: 1                   #default 7 로그 파일 삭제 주기이다. 7일 이후 로그는 삭제한다.
       file-name-pattern: app_log.%d{yyyy-MM-dd}.%i.gz
-

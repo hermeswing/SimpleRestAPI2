@@ -1,34 +1,39 @@
+##############################################################
+# Server port
+# server.tomcat.threads.min-spare : 톰캣워커 스레드풀의 최소값을 설정한다.
+# server.tomcat.threads.max : 톰캣 워커 스레드 풀의 최대값을 설정한다.
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+    session:
+      timeout: 120                              # 기본단위 : 초
+  tomcat:
+    uri-encoding: UTF-8                         # Spring Default : UTF-8
+    threads:
+      min-spare: 100
+      max: 100
 
 ##############################################################
 # -Dspring.profiles.active=local
-# Redis 옵션들
-# https://zetawiki.com/wiki/%EC%8A%A4%ED%94%84%EB%A7%81_REDIS_%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0
-# 커넥션 팩토리에 사용되는 데이터베이스 인덱스
-#spring.redis.database
-# 레디스 서버 호스트
 spring:
   profiles:
     include: local
-
+  #devtools:
+  #  livereload:
+  #    enabled: true      # DevTools 사용 시 true
+  ##############################################################
+  # Swagger pathmatch
+  # spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
 ##############################################################
 # Logging
 logging:
   config: classpath:logback-local.xml
-  level:
-    root: debug
-    org:
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql: trace
-  pattern:
-    console: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger[%method:%line] - %msg%n"
-    file: "%-5level %d{yy-MM-dd HH:mm:SSS}[%thread] %logger[%method:%line] - %msg%n"
-  file:
-    name: /home/jypark/workspace/logs/logback-local.log
-  logback:
-    rollingpolicy:
-      max-file-size: 1MB                #default 10M
-      max-history: 31                   #default 7
-      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz
+
