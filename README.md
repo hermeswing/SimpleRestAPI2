@@ -8,8 +8,12 @@ Simple REST API Version 2
   - 기능 ( 사용자 관리, 로그인, 로그아웃 등등 )
 
 ## History
-3. 2024.02.06
+4. 2024.02.06
   - application.yml, application-local.yml, logback-local.xml 소스정리
+  - SimpleRestAPI/20240206 생성
+    - Swagger v3.x 를 적용. `localhost:8080/swagger-ui/index.html`
+    - SwaggerConfig : Swagger Config 설정
+    - Dependency 추가 : implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
 3. 2024.02.05
   - SimpleRestAPI/202402031300 을 main 으로 Merge

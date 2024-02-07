@@ -20,7 +20,9 @@ spring:
       # 하이버네이트가 자동으로 생성해주는 DDL은 신뢰성이 떨어지기 때문에
       # 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
       ddl-auto: none
-
+  #devtools:
+  #  livereload:
+  #    enabled: true      # DevTools 사용 시 true
 ##############################################################
 # Logging
 # logback-local.xml 파일이 적용되기 전 적용됨.

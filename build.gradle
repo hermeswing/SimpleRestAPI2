@@ -31,6 +31,12 @@ dependencies {
     // HATEOAS 라이브러리 추가 Default : 1.5.3
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 
+    // Swagger 3.0.0
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    // io.springfox:springfox-boot-starter:3.0.0 는 아래의 두개를 포함 함니다.
+    //implementation 'io.springfox:springfox-swagger2:3.0.0'
+    //implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     runtimeOnly 'org.postgresql:postgresql'
 
     // Default :: 1.18.30
