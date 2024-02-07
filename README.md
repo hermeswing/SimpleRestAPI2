@@ -8,12 +8,14 @@ Simple REST API Version 2
   - 기능 ( 사용자 관리, 로그인, 로그아웃 등등 )
 
 ## History
+
 5. 2024.02.07
    - SimpleRestAPI/20240206 을 main 으로 Merge
    - SimpleRestAPI/202402071500 branch 생성
      - JSON 타입으로 리턴 결과를 표준화했음.
        - ResultCode, CommonResult, ListResult, SingleResult, ResponseManager 등 생성
-     
+   - SimpleRestAPI/202402071500 을 main 으로 Merge
+
 4. 2024.02.06
   - application.yml, application-local.yml, logback-local.xml 소스정리
   - SimpleRestAPI/20240206 생성
