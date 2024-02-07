@@ -15,7 +15,11 @@ Simple REST API Version 2
      - JSON 타입으로 리턴 결과를 표준화했음.
        - ResultCode, CommonResult, ListResult, SingleResult, ResponseManager 등 생성
    - SimpleRestAPI/202402071500 을 main 으로 Merge
-
+   - SimpleRestAPI/202402072000 branch 생성
+     - Message properties 처리
+     - application.yml 에 spring.messages 설정을 추가
+     - MessageConfig, properties 파일 생성
+     
 4. 2024.02.06
   - application.yml, application-local.yml, logback-local.xml 소스정리
   - SimpleRestAPI/20240206 생성
