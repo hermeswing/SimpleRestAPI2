@@ -55,25 +55,41 @@ Simple REST API Version 2
   - SimpleRestAPI/202402031300 을 main 으로 Merge
 
 4. 2024.02.06
-  - application.yml, application-local.yml, logback-local.xml 소스정리
+  - 소스정리
+    - `application.yml`, `application-local.yml`, `logback-local.xml` 
   - SimpleRestAPI2/20240206 생성
     - Swagger v3.x 를 적용. `localhost:8080/swagger-ui/index.html`
-    - SwaggerConfig : Swagger Config 설정
-    - Dependency 추가 : implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    - 관련 Source
+      - `SwaggerConfig.java` : Swagger Config 설정
+    - build.gradle
+      - `implementation 'io.springfox:springfox-boot-starter:3.0.0'` 추가
 
 5. 2024.02.07
   - SimpleRestAPI2/20240206 을 main 으로 Merge
   - SimpleRestAPI2/202402071500 branch 생성
     - JSON 타입으로 리턴 결과를 표준화했음.
-      - ResultCode, CommonResult, ListResult, SingleResult, ResponseManager 등 생성
+      - 관련 Source
+        - `ResultCode.java` 추가
+        - `CommonResult.java` 추가
+        - `ListResult.java` 추가
+        - `SingleResult.java` 추가
+        - `ResponseManager.java` 추가
   - SimpleRestAPI2/202402071500 을 main 으로 Merge
     - Message properties 처리
-    - application.yml 에 spring.messages 설정을 추가
-    - MessageConfig, properties 파일 생성
+    - application.yml 에 `spring.messages` 설정을 추가
+    - 관련 Source
+      - `MessageConfig.java` 추가
+      - `exception.properties` 추가
+      - `messages.properties` 추가
 
 6. 2024.02.08
   - SimpleRestAPI2/202402081000 branch 생성 
     - P6SPY 추가
       - 쿼리를 예쁘게 찍어보자.
+      - 관련 Source
+        - `P6SpySqlFormatter.java` 추가
+        - `spy.properties` 추가
+      - build.gradle
+        - `implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'` 추가
     - AOP 기능 추가
       - 각 트랜젝션 ID 당 유일한 Logging 처리

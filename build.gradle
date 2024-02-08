@@ -37,7 +37,13 @@ dependencies {
     //implementation 'io.springfox:springfox-swagger2:3.0.0'
     //implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 
+    // PostgreSQL 드라이버 추가
     runtimeOnly 'org.postgresql:postgresql'
+
+    // jpa query logging
+    // p6spy dependency
+    //implementation 'p6spy:p6spy:3.9.1'         // 사용 중인 버전에 맞게 설정
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
 
     // Default :: 1.18.30
     compileOnly 'org.projectlombok:lombok'
