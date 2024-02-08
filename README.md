@@ -92,5 +92,13 @@ Simple REST API Version 2
       - build.gradle
         - `implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'` 추가
   - SimpleRestAPI2/202402081000 을 main 으로 Merge
+  - SimpleRestAPI2/202402081100 branch 생성
     - AOP 기능 추가
-      - 각 트랜젝션 ID 당 유일한 Logging 처리
+    - 각 트랜젝션 ID 당 유일한 Logging 처리
+    - build.gradle
+      - `implementation 'org.springframework.boot:spring-boot-starter-aop` 추가
+    - 관련 Source
+      - `TrackingAspect.java` 추가
+      - `AopConfig.java` 추가
+      - `MyThreadLocal.java` 추가
+      - `WebConst.java` 추가
