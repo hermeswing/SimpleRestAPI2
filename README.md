@@ -91,5 +91,6 @@ Simple REST API Version 2
         - `spy.properties` 추가
       - build.gradle
         - `implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'` 추가
+  - SimpleRestAPI2/202402081000 을 main 으로 Merge
     - AOP 기능 추가
       - 각 트랜젝션 ID 당 유일한 Logging 처리
