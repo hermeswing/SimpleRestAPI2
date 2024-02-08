@@ -9,32 +9,6 @@ Simple REST API Version 2
 
 ## History
 
-5. 2024.02.07
-   - SimpleRestAPI/20240206 을 main 으로 Merge
-   - SimpleRestAPI/202402071500 branch 생성
-     - JSON 타입으로 리턴 결과를 표준화했음.
-       - ResultCode, CommonResult, ListResult, SingleResult, ResponseManager 등 생성
-   - SimpleRestAPI/202402071500 을 main 으로 Merge
-     - Message properties 처리
-     - application.yml 에 spring.messages 설정을 추가
-     - MessageConfig, properties 파일 생성
-     
-4. 2024.02.06
-  - application.yml, application-local.yml, logback-local.xml 소스정리
-  - SimpleRestAPI/20240206 생성
-    - Swagger v3.x 를 적용. `localhost:8080/swagger-ui/index.html`
-    - SwaggerConfig : Swagger Config 설정
-    - Dependency 추가 : implementation 'io.springfox:springfox-boot-starter:3.0.0'
-
-3. 2024.02.05
-  - SimpleRestAPI/202402031300 을 main 으로 Merge
-
-2. 2024.02.03
-  - SimpleRestAPI/202402031300 branch 생성
-    - lombok 설치
-    - postgresql 설치 SimpleRestAPI/202402031300 
-    - 사용자 조회 / 수정 / 삭제 기능 추가
-
 1. 2024.02.02
   - SimpleRestAPI/20240202 branch 생성
     - Git 명령어  
@@ -70,4 +44,36 @@ Simple REST API Version 2
       - Git 명령어  
         `git checkout main` -> 일단 `main` 으로 branch를 옮기고,    
         `git merge SimpleRestAPI/202402021500` -> 일단 `main` 과 합친다.
-  - **아니다**. Cherry-pick 이 맞는 것 같다.
+
+2. 2024.02.03
+  - SimpleRestAPI/202402031300 branch 생성
+    - lombok 설치
+    - postgresql 설치 SimpleRestAPI/202402031300
+    - 사용자 조회 / 수정 / 삭제 기능 추가
+
+3. 2024.02.05
+  - SimpleRestAPI/202402031300 을 main 으로 Merge
+
+4. 2024.02.06
+  - application.yml, application-local.yml, logback-local.xml 소스정리
+  - SimpleRestAPI2/20240206 생성
+    - Swagger v3.x 를 적용. `localhost:8080/swagger-ui/index.html`
+    - SwaggerConfig : Swagger Config 설정
+    - Dependency 추가 : implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+5. 2024.02.07
+  - SimpleRestAPI2/20240206 을 main 으로 Merge
+  - SimpleRestAPI2/202402071500 branch 생성
+    - JSON 타입으로 리턴 결과를 표준화했음.
+      - ResultCode, CommonResult, ListResult, SingleResult, ResponseManager 등 생성
+  - SimpleRestAPI2/202402071500 을 main 으로 Merge
+    - Message properties 처리
+    - application.yml 에 spring.messages 설정을 추가
+    - MessageConfig, properties 파일 생성
+
+6. 2024.02.08
+  - SimpleRestAPI2/202402081000 branch 생성 
+    - P6SPY 추가
+      - 쿼리를 예쁘게 찍어보자.
+    - AOP 기능 추가
+      - 각 트랜젝션 ID 당 유일한 Logging 처리
