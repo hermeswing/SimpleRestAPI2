@@ -11,6 +11,7 @@ Simple REST API Version 2
 
 1. 2024.02.02
   - SimpleRestAPI/20240202 branch 생성
+    - `HelloControler.java` 생성
     - Git 명령어  
         `git add .`  
         `git commit -m "Hello World RestController 생성"`  
@@ -48,7 +49,8 @@ Simple REST API Version 2
 2. 2024.02.03
   - SimpleRestAPI/202402031300 branch 생성
     - lombok 설치
-    - postgresql 설치 SimpleRestAPI/202402031300
+    - postgresql 설치 
+    - SimpleRestAPI/202402031300 branch 생성
     - 사용자 조회 / 수정 / 삭제 기능 추가
 
 3. 2024.02.05
@@ -102,3 +104,4 @@ Simple REST API Version 2
       - `AopConfig.java` 추가
       - `MyThreadLocal.java` 추가
       - `WebConst.java` 추가
+  - SimpleRestAPI2/202402081100 을 main 으로 Merge
