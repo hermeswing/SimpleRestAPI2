@@ -28,7 +28,7 @@ server:
 # spring.profiles.include : 이 속성은 추가로 포함할 프로파일을 지정하는 데 사용
 spring:
   profiles:
-    active: local
+    active: prod
   #include: local
   ##############################################################
   # Swagger pathmatch

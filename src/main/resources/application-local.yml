@@ -21,6 +21,21 @@ spring:
       # 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
       ddl-auto: none
   ##############################################################
+  # - 경로 : /src/main/resources 경로 하위
+  # - schema.sql : 테이블 생성 스크립트
+  # - data.sql : 데이터 입력 스크립트
+  # - 파일이름규칙 : schema-${platform}.sql , data-${platform}.sql
+  #   ex. schema-h2.sql , shcema-postgres.sql
+  #spring.datasource.initialization-mode=always # Spring Boot <v2.5.x
+  # DB초기화(schema.sql, data.sql) , [always : 기동 시 매번 동작, never : 기동 시 동작하지 않음]
+  sql:
+    init:
+      schema-locations: classpath*:initData/schema-postgresql.sql
+      data-locations: classpath*:initData/data-postgresql.sql
+      mode: always             # Spring Boot >=v2.5.0
+      encoding: UTF-8          # Spring Boot >=v2.5.0
+
+  ##############################################################
   # Spring Message 처리
   # spring.messages 처리
   messages:

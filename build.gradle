@@ -40,6 +40,9 @@ dependencies {
 
     // PostgreSQL 드라이버 추가
     runtimeOnly 'org.postgresql:postgresql'
+    // MySQL 드라이버 추가
+    //runtimeOnly 'com.mysql:mysql-connector-java'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // jpa query logging
     // p6spy dependency
