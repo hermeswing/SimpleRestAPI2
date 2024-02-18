@@ -106,3 +106,6 @@ Simple REST API Version 2
       - `WebConst.java` 추가
   - SimpleRestAPI2/202402081100 을 main 으로 Merge
     - 일부 기능 수정
+
+7. 2024.02.18
+  - SimpleRestAPI2/20240218 branch 생성 
