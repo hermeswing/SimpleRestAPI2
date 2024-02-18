@@ -28,8 +28,26 @@ server:
 # spring.profiles.include : 이 속성은 추가로 포함할 프로파일을 지정하는 데 사용
 spring:
   profiles:
-    active: prod
+    active: local
   #include: local
+  ##############################################################
+  # Redis 설정
+  redis:
+    host: localhost
+    lettuce:
+      pool:
+        enabled: true
+        max-active: 8       # pool에 할당될 수 있는 커넥션 최대수 (음수로 하면 무제한)
+        max-idle: 8         # 풀에서 관리하는 idle 커넥션의 쵀소수 대상 (양수일 때만 유효)
+        max-wait: -1        # pool이 바닥났을 때 예외 발생 전, 커넥션 할당 차단 최대 시간(단위 밀리세컨드, 음수는 무제한 차단)
+        min-idle: 0         # 풀에서 관리하는 idle 커넥션의 쵀소수 대상 (양수일 때만 유효)
+    port: 6379              # 레디스 서버 포트
+    # 레디스 서버 이름
+    #spring.redis.sentinel.master
+    # 호스트: 포트 쌍 목록 (콤마로 구분)
+    #spring.redis.sentinel.nodes=
+    # 커넥션 타임아웃 (단위 밀리세컨드)
+    timeout: 0
   ##############################################################
   # Swagger pathmatch
   # spring.mvc.pathmatch.matching-strategy=ant_path_matcher
@@ -41,3 +59,15 @@ spring:
 logging:
   config: classpath:logback-local.xml
 
+##############################################################
+# JWT 사용자 설정
+# secretKey는 SignatureAlgorithm.HS512 알고리즘을 사용할 예정이기 때문에
+# Secret Key는 64Byte 이상 되어야 한다.
+custom:
+  jwt:
+    header: Authorization
+    secretKey: MySecretKeyABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890ABCDE
+    refresh-token-validity-in-seconds: 1209600000  # 14일
+    #token-validity-in-seconds: 43200000            # 12시간 ( 3600000; // 1시간 )
+    token-validity-in-seconds: 86400000            # 24시간
+    cookie-expiration: 7776000000                  # 90일
