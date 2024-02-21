@@ -186,4 +186,23 @@ Simple REST API Version 2
        ```
        - 관련 Source
          - `RedisRepositoryConfig.java`, `RedisService.java` 추가
-         - 
+
+8. 2024.02.21
+   - Spring Security 때문에 화면이 Swagger 화면 오픈 불가
+     - `SecurityConfig.java` 파일에 PERMIT_URL_ARRAY 설정 추가
+       ```java
+         private static final String[] PERMIT_URL_ARRAY = {
+         /* swagger v2 */
+         "/v2/api-docs",
+         "/swagger-resources",
+         "/swagger-resources/**",
+         "/configuration/ui",
+         "/configuration/security",
+         "/swagger-ui.html",
+         "/webjars/**",
+         /* swagger v3 */
+         "/v3/api-docs/**",
+         "/swagger-ui/**"
+         };
+       ```
+     - `JwtFilter.java` 파일에 swagger resouce 제외 설정 추가

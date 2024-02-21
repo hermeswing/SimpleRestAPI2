@@ -50,6 +50,20 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+    private static final String[] PERMIT_URL_ARRAY = {
+            /* swagger v2 */
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            /* swagger v3 */
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
     // TokenProvider,JwtAuthenticationEntryPoint,JwtAccessDeniedHandler 의존성 주입
     public SecurityConfig( JwtTokenProvider tokenProvider, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler ) {
         log.debug( "★★★★★★★★★★★★★★★★★★ [SecurityConfig] 생성자 생성. ★★★★★★★★★★★★★★★★★" );
@@ -101,7 +115,10 @@ public class SecurityConfig {
                 // hasRole("권한"): 특정 레벨의 권한을 가진 사용자만 접근을 허용한다.(SecurityContext에 저장했던 Authentication 객체의 Authorities를 검사한다.)
                 // permitAll(): 인증 절차 없이 접근을 허용한다.
                 .and().authorizeHttpRequests() // '인증'이 필요하다
-                .requestMatchers( new AntPathRequestMatcher( "/login" ) ).permitAll().requestMatchers( new AntPathRequestMatcher( "/signup" ) ).permitAll().antMatchers( "/api/admin/**" ).hasRole( "ADMIN" ) // 관리자 페이지
+                .requestMatchers( new AntPathRequestMatcher( "/login" ) ).permitAll()
+                .requestMatchers( new AntPathRequestMatcher( "/signup" ) ).permitAll()
+                .antMatchers(PERMIT_URL_ARRAY).permitAll()
+                .antMatchers( "/api/admin/**" ).hasRole( "ADMIN" ) // 관리자 페이지
                 .antMatchers( "/**" ).authenticated() // 마이페이지 인증 필요
                 //.anyRequest().permitAll()
                 .and()
