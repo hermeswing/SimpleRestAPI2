@@ -206,3 +206,31 @@ Simple REST API Version 2
          };
        ```
      - `JwtFilter.java` 파일에 swagger resouce 제외 설정 추가
+     
+9. 2024.02.22
+   - 테스트 `http://localhost:8080/swagger-ui/index.html`
+     - 입력 테스트
+       ```json
+          {
+             "userId":"test"
+           , "userNm":"홍길동"
+           , "password":"A123456!"
+           , "email":"test@naver.com"
+           , "userRole":"USER"
+           , "crtId":"test"
+           , "mdfId":"test"
+          }
+       ```
+       - Security 적용으로 Password 암호화 적용.
+       - 기초데이터(`data-postgresql.sql`) 파일의 Password 도 암호화 해서 수정. 
+       - 비밀번호 변경 : 1234 -> A123456!
+     - 로그인 테스트
+       ```json
+          {
+             "password": "A123456!"
+           , "userId": "test"
+          }
+       ```
+       - Response headers의 authorization 값을 확인해서 테스트 시 header 값을 적용해야 함.
+         - `authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MDg2NTIzNzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHBzOi8vbG9jYWxob3N0OjcwMDAiOnRydWUsInVzZXJJZCI6InRlc3QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.LZpOoHc9Eyu_yrW4pThE90YC3L38UuIQyYBdOSt5cPssmzJgNbLqGtaAtYn00Ug2a2uAG-A32-8q8Y7bbeIZYw`
+       

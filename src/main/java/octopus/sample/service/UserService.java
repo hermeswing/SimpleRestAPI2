@@ -9,6 +9,7 @@ import octopus.sample.repository.UsersRepository;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional( readOnly = true )
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
     private final UsersRepository userRepository;
     private final ResponseManager responseManager;
     private final MessageSourceAccessor msgResource;
@@ -78,7 +80,10 @@ public class UserService {
             // return responseManager.getErrorResult( HttpStatus.CONFLICT, "중복된 데이터가 존재합니다." );
             return responseManager.getErrorResult( HttpStatus.CONFLICT, msgResource.getMessage( "exception.duplicateKey" ) );  // 중복된 데이터가 존재합니다.
         } else {
-            Users users = Users.createEntry( userDto );
+            String encodedPassword = passwordEncoder.encode( userDto.getPassword() );
+            log.debug( "encodedPassword :: {}", encodedPassword );
+
+            Users users = Users.createEntry( userDto, encodedPassword );
             Users saveUsers = userRepository.save( users );
 
             log.debug( "saveUsers :: {}", saveUsers );

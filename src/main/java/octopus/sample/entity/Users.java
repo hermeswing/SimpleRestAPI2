@@ -93,13 +93,13 @@ public class Users extends BaseEntity implements Persistable<Long> {
         super.mdfId = mdfId;
     }
 
-    public static Users createEntry( UserDTO.UserDto userDTO ) {
+    public static Users createEntry( UserDTO.UserDto userDTO, String encodedPassword ) {
         Users user = new Users();
         user.id = userDTO.getId();
         user.userId = userDTO.getUserId();
         user.userNm = userDTO.getUserNm();
         user.email = userDTO.getEmail();
-        user.password = userDTO.getPassword();
+        user.password = encodedPassword;
         user.userRole = UserRole.USER;
 
         user.crtId = userDTO.getCrtId();
