@@ -188,11 +188,11 @@ Simple REST API Version 2
          - `RedisRepositoryConfig.java`, `RedisService.java` 추가
 
 8. 2024.02.21
-   - Spring Security 때문에 화면이 Swagger 화면 오픈 불가
-     - `SecurityConfig.java` 파일에 PERMIT_URL_ARRAY 설정 추가
-       ```java
-         private static final String[] PERMIT_URL_ARRAY = {
-         /* swagger v2 */
+  - Spring Security 때문에 화면이 Swagger 화면 오픈 불가
+    - `SecurityConfig.java` 파일에 PERMIT_URL_ARRAY 설정 추가
+      ```java
+        private static final String[] PERMIT_URL_ARRAY = {
+        /* swagger v2 */
          "/v2/api-docs",
          "/swagger-resources",
          "/swagger-resources/**",
@@ -203,34 +203,118 @@ Simple REST API Version 2
          /* swagger v3 */
          "/v3/api-docs/**",
          "/swagger-ui/**"
-         };
-       ```
-     - `JwtFilter.java` 파일에 swagger resouce 제외 설정 추가
+        };
+      ```
+    - `JwtFilter.java` 파일에 swagger resouce 제외 설정 추가
      
 9. 2024.02.22
-   - 테스트 `http://localhost:8080/swagger-ui/index.html`
-     - 입력 테스트
-       ```json
-          {
-             "userId":"test"
-           , "userNm":"홍길동"
-           , "password":"A123456!"
-           , "email":"test@naver.com"
-           , "userRole":"USER"
-           , "crtId":"test"
-           , "mdfId":"test"
+  - 테스트 `http://localhost:8080/swagger-ui/index.html`
+    - 입력 테스트
+      ```json
+        {
+            "userId":"test"
+          , "userNm":"홍길동"
+          , "password":"A123456!"
+          , "email":"test@naver.com"
+          , "userRole":"USER"
+          , "crtId":"test"
+          , "mdfId":"test"
+        }
+      ```
+      - Security 적용으로 Password 암호화 적용.
+      - 기초데이터(`data-postgresql.sql`) 파일의 Password 도 암호화 해서 수정. 
+      - 비밀번호 변경 : 1234 -> A123456!
+    - 로그인 테스트
+      ```json
+        {
+           "password": "A123456!"
+         , "userId": "test"
+        }
+      ```
+      - Response headers의 authorization 값을 확인해서 테스트 시 header 값을 적용해야 함.
+        - `authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MDg2NTIzNzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHBzOi8vbG9jYWxob3N0OjcwMDAiOnRydWUsInVzZXJJZCI6InRlc3QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.LZpOoHc9Eyu_yrW4pThE90YC3L38UuIQyYBdOSt5cPssmzJgNbLqGtaAtYn00Ug2a2uAG-A32-8q8Y7bbeIZYw`
+
+10. 2024.03.05
+  - SwaggerConfig.java 수정
+  - Swagger 화면 상단에 `Authorize` 라는 기능이 추가된다.
+    - login을 성공하면 생성되는 `Bearer {access token}` 를 등록할 수 있음. ( header 항목으로 추가됨. )
+      ```java
+      import org.springframework.context.annotation.Bean;
+      import org.springframework.context.annotation.Configuration;
+      import springfox.documentation.builders.PathSelectors;
+      import springfox.documentation.builders.RequestHandlerSelectors;
+      import springfox.documentation.service.*;
+      import springfox.documentation.spi.DocumentationType;
+      import springfox.documentation.spi.service.contexts.SecurityContext;
+      import springfox.documentation.spring.web.plugins.Docket;
+      import springfox.documentation.swagger2.annotations.EnableSwagger2;
+    
+      import java.util.Arrays;
+      import java.util.Collections;
+      import java.util.List;
+    
+      /**
+      * <pre>
+        *     Swagger 3.x 는 @link "http:// localhost:8080/swagger-ui/index.html"
+      * </pre>
+      */
+      @Configuration
+      @EnableSwagger2
+      class SwaggerConfig {
+    
+          @Bean
+          public Docket api() {
+              //return new Docket( DocumentationType.SWAGGER_2 )   // 2.x 버전
+              return new Docket(DocumentationType.OAS_30)          // 3.x 버전
+                      .securityContexts(Arrays.asList(securityContext())) // 추가
+                      .securitySchemes(Arrays.asList(apiKey()))           // 추가
+                      .select()
+                      .apis(RequestHandlerSelectors.basePackage("octopus"))
+                      .paths(PathSelectors.any())
+                      .build()
+                      .apiInfo(apiInfo());
           }
-       ```
-       - Security 적용으로 Password 암호화 적용.
-       - 기초데이터(`data-postgresql.sql`) 파일의 Password 도 암호화 해서 수정. 
-       - 비밀번호 변경 : 1234 -> A123456!
-     - 로그인 테스트
-       ```json
-          {
-             "password": "A123456!"
-           , "userId": "test"
+    
+          // 추가
+          private SecurityContext securityContext() {
+              return SecurityContext.builder()
+                      .securityReferences(defaultAuth())
+                      .build();
           }
-       ```
-       - Response headers의 authorization 값을 확인해서 테스트 시 header 값을 적용해야 함.
-         - `authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MDg2NTIzNzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHBzOi8vbG9jYWxob3N0OjcwMDAiOnRydWUsInVzZXJJZCI6InRlc3QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.LZpOoHc9Eyu_yrW4pThE90YC3L38UuIQyYBdOSt5cPssmzJgNbLqGtaAtYn00Ug2a2uAG-A32-8q8Y7bbeIZYw`
-       
+    
+          // 추가
+          private List<SecurityReference> defaultAuth() {
+              AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+              AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+              authorizationScopes[0] = authorizationScope;
+              return Arrays.asList(new SecurityReference("Authorization", authorizationScopes));
+          }
+    
+          // 추가
+          private ApiKey apiKey() {
+              return new ApiKey("Authorization", "Authorization", "header");
+          }
+    
+          private ApiInfo apiInfo() {
+              return new ApiInfo(
+                      "Octopus REST API",
+                      "사용자 관리 of API.",
+                      "Octopus V0.1",
+                      "",
+                      new Contact("문어발 프로젝트", "www.octopus.com", "myemail@octopus.com"),
+                      "무조건 오픈", "API license URL", Collections.emptyList());
+          }
+    
+    
+      }
+      ```
+  - 조회 테스트
+    - 오늘쪽 상단에 `Authorize` 항목을 클릭하여, 로그인 후 Header 정보로 보내지는 `Bearer {access token}` 를 등록한다.
+    - 전체 사용자 조회
+      - 파라메터 없음.
+    - 아이디 조회
+      ```json
+        {
+           "userId": "test"
+        }
+      ```

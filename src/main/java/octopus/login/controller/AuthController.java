@@ -1,5 +1,9 @@
 package octopus.login.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import octopus.base.WebConst;
@@ -45,6 +49,10 @@ public class AuthController {
      * @return
      */
     @PostMapping( "/login" )
+    @Operation(summary = "회원 조회", description = "id에 해당하는 회원을 조회한다.", responses = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
+            @ApiResponse(responseCode = "400", description = "실패 - id에 해당하는 회원이 없음", content = @Content(schema = @Schema(implementation = ResponseEntity.class)))
+    })
     //public ResponseEntity<?> login(@RequestBody @Valid AuthDTO.LoginDto loginDto, HttpServletResponse response) {
     public ResponseEntity login( @RequestBody @Valid AuthDTO.LoginDto loginDto, HttpServletResponse response ) {
         log.debug( "★★★★★★★★★★★★★★★★★★ [/login] ★★★★★★★★★★★★★★★★★" );
@@ -52,8 +60,6 @@ public class AuthController {
         AuthDTO.TokenDto tokenDto = authService.login( loginDto );
 
         ResponseCookie cookie = ResponseCookie.from( "refresh-token", tokenDto.getRefreshToken() )
-                //.domain(".bae-chelin.com")
-                //.path("/")
                 .httpOnly( true ).maxAge( cookieExpiration ).build();
 
         // RT 저장
