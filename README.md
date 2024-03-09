@@ -318,3 +318,9 @@ Simple REST API Version 2
            "userId": "test"
         }
       ```
+
+11. 2024.03.09
+  - 일부 Source 주석 수정
+  - MyThreadLocal Source 정리
+  - TrackingAspec.java 에서 MyThreadLocal.clearContext 했던 기능을 JwtFilter.java 에서 하도록 변경
+  - JwtSecurityConfig.java를 삭제하고, SecurityConfig.java를 JwtSecurityConfig.java로 변경함.

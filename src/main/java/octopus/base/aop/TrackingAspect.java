@@ -51,11 +51,11 @@ public class TrackingAspect {
         //String className = joinPoint.getSignature().getDeclaringTypeName();
         //String methodName = joinPoint.getSignature().getName();
 
-        String threadId = "ThreadId-" + Thread.currentThread().getId();
-        MDC.put( WebConst.THREAD_ID, threadId );
+        //String threadId = "ThreadId-" + Thread.currentThread().getId();
+        //MDC.put( WebConst.THREAD_ID, threadId );
         // ThreadLocal 을 초기화 한다.
-        MyThreadLocal.clearContext();
-        MyThreadLocal.setContext( WebConst.THREAD_ID, threadId );
+        //MyThreadLocal.clearContext();
+        //MyThreadLocal.setContext( WebConst.THREAD_ID, threadId );
 
         MyThreadLocal.setContext( WebConst.START_TIME, System.currentTimeMillis() );
 

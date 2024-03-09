@@ -67,59 +67,11 @@ public class JwtTokenProvider implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         log.debug( "★★★★★★★★★★★★★★★★★★ [JwtTokenProvider.afterPropertiesSet] ★★★★★★★★★★★★★★★★★" );
-        MyThreadLocal.setTrackingLog("[Provider] " + this.getClass().getName() + ".afterPropertiesSet()");
 
         byte[] keyBytes = Decoders.BASE64.decode( secretKey );
         this.signingKey = Keys.hmacShaKeyFor( keyBytes );
 
-        //MyThreadLocal.setDevTrackingLog("[afterPropertiesSet] signingKey :: " + signingKey);
-
         log.debug( "[afterPropertiesSet] signingKey :: {}", signingKey );
-    }
-
-    // Authentication 객체의 권한 정보를 이용해서 토큰을 생성
-    public String createToken( Authentication authentication ) {
-        log.debug( "★★★★★★★★★★★★★★★★★★ [JwtTokenProvider.createToken] ★★★★★★★★★★★★★★★★★" );
-        // authorities 설정
-        String authorities = authentication.getAuthorities().stream()
-                .map( GrantedAuthority::getAuthority )
-                .collect( Collectors.joining( "," ) );
-
-        log.debug( "[createToken] authentication :: {}", authorities );
-        log.debug( "[createToken] authentication.getName() :: {}", authentication.getName() );
-
-        Claims claims = Jwts.claims();
-        claims.put( "username", authentication.getName() );
-
-        // 토큰 만료 시간 설정
-        long now = ( new Date() ).getTime();
-        Date validity = new Date( now + this.tokenValidityInMilliseconds );
-
-        return Jwts.builder()
-                .setSubject( authentication.getName() )
-                .claim( WebConst.AUTHORITIES_KEY, authorities )
-                .setClaims( claims )
-                .setIssuedAt( new Date() )
-                .signWith( signingKey, SignatureAlgorithm.HS512 )
-                .setExpiration( validity )
-                .compact();
-    }
-
-    public String createToken2( String username, String userRole ) {
-        log.debug( "[createToken2] username :: {}", username );
-
-        // claims.getSubject() :: 사용자ID가 들어있음.
-        Claims claims = Jwts.claims();
-        claims.put( "username", username );
-
-        return Jwts.builder()
-                .setSubject( username )
-                .claim( WebConst.AUTHORITIES_KEY, userRole )
-                .setClaims( claims )
-                .setIssuedAt( new Date() )
-                .signWith( getSigninKey( secretKey ), SignatureAlgorithm.HS256 )
-                .setExpiration( new Date( System.currentTimeMillis() + this.tokenValidityInMilliseconds ) )
-                .compact();
     }
 
     /**
@@ -320,4 +272,51 @@ public class JwtTokenProvider implements InitializingBean {
         }
         return false;
     }
+
+
+    // Authentication 객체의 권한 정보를 이용해서 토큰을 생성
+    public String createToken( Authentication authentication ) {
+        log.debug( "★★★★★★★★★★★★★★★★★★ [JwtTokenProvider.createToken] ★★★★★★★★★★★★★★★★★" );
+        // authorities 설정
+        String authorities = authentication.getAuthorities().stream()
+                .map( GrantedAuthority::getAuthority )
+                .collect( Collectors.joining( "," ) );
+
+        log.debug( "[createToken] authentication :: {}", authorities );
+        log.debug( "[createToken] authentication.getName() :: {}", authentication.getName() );
+
+        Claims claims = Jwts.claims();
+        claims.put( "username", authentication.getName() );
+
+        // 토큰 만료 시간 설정
+        long now = ( new Date() ).getTime();
+        Date validity = new Date( now + this.tokenValidityInMilliseconds );
+
+        return Jwts.builder()
+                .setSubject( authentication.getName() )
+                .claim( WebConst.AUTHORITIES_KEY, authorities )
+                .setClaims( claims )
+                .setIssuedAt( new Date() )
+                .signWith( signingKey, SignatureAlgorithm.HS512 )
+                .setExpiration( validity )
+                .compact();
+    }
+
+    public String createToken2( String username, String userRole ) {
+        log.debug( "[createToken2] username :: {}", username );
+
+        // claims.getSubject() :: 사용자ID가 들어있음.
+        Claims claims = Jwts.claims();
+        claims.put( "username", username );
+
+        return Jwts.builder()
+                .setSubject( username )
+                .claim( WebConst.AUTHORITIES_KEY, userRole )
+                .setClaims( claims )
+                .setIssuedAt( new Date() )
+                .signWith( getSigninKey( secretKey ), SignatureAlgorithm.HS256 )
+                .setExpiration( new Date( System.currentTimeMillis() + this.tokenValidityInMilliseconds ) )
+                .compact();
+    }
+
 }
